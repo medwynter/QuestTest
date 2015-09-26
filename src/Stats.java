@@ -10,10 +10,8 @@ import java.util.TreeMap;
  * @author Created by ritho on 9/25/15.
  */
 public class Stats {
-    private BufferedReader br;
     private int wordsCount = 0;
-    private String fileName = "";
-    private List<String> longestWord = new ArrayList<String>();
+    private List<String> longestWord = new ArrayList<String>();//List of longest words
     private List<String> uw = new ArrayList<String>();//List of  unique words by use of chars
     private Map<Integer, Integer> lensOfWords = new TreeMap<Integer, Integer>();
 
@@ -31,8 +29,7 @@ public class Stats {
     public Stats(List<String> file) {
 
         for (String i : file) {
-            fileName = i;
-            wrdListMaker(fileName);
+            wrdListMaker(i);
         }
 
     }
@@ -57,7 +54,7 @@ public class Stats {
      * @param file - The file that will be parsed to create the word list.
      */
     private void wrdListMaker(String file) {
-
+        BufferedReader br;
         // The name of the file to open.
         // filename = files;
 
@@ -92,6 +89,7 @@ public class Stats {
 
 
     public void reuslt() {
+        System.out.println("-----------------------------------");
         Thread t2 = new Thread() {
             public void run() {
 
@@ -221,9 +219,9 @@ public class Stats {
 
         if (!lensOfWords.containsKey(n)) {
 
-            System.out.println("There are no words of size " + n + ".");
+            System.out.println("\nThere are no words of size " + n + ".");
         } else {
-            System.out.println("There are " + lensOfWords.get(n) + " words with " + n + " letters. \n");
+            System.out.println("\nThere are " + lensOfWords.get(n) + " words with " + n + " letters. ");
         }
 
 
@@ -248,10 +246,10 @@ public class Stats {
                 }
 
             }
-            System.out.println("Here is a list of word(s) that repeat '" + Character.toUpperCase(co) + "' the most. \n" +
-                    mostC.toString().replaceAll("[\\[\\]]", ""));
+            System.out.println("Here is a list of word(s) that repeat '" + Character.toUpperCase(co) + "' the most. " +
+                    "\n  \t" + mostC.toString().replaceAll("[\\[\\]]", ""));
         } else {
-            System.out.println(co + " is not in the letter");
+            System.out.println(co + " is not a letter.");
         }
     }
 }

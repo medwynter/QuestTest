@@ -25,16 +25,16 @@ public class Main {
         Scanner console = new Scanner(System.in);
         //Get a number to see word(s) that  has N letter's.
         int number;
-        System.out.print("Please enter size of words: ");
+        System.out.print("Please enter size of words to find words of that size: ");
         while (!console.hasNextInt()) {
-            System.out.println("That's not a number!");
+            System.out.println("That's not a number! Try Again!");
             console.next();
         }
         number = console.nextInt();
 
         //Get a char to returns word(s) with the most uses of that Char
         char c;
-        System.out.print("\nPlease enter a letter to find word with it repeated the most: ");
+        System.out.print("Please enter a letter to find word with it repeated the most: ");
         c = console.next().charAt(0);
 
         //Call to create list and display output.
