@@ -223,7 +223,7 @@ public class Stats {
 
             System.out.println("There are no words of size " + n + ".");
         } else {
-            System.out.println("There are " + lensOfWords.get(n) + " words.\n");
+            System.out.println("There are " + lensOfWords.get(n) + " words with " + n + " letters. \n");
         }
 
 
@@ -232,20 +232,26 @@ public class Stats {
     public void repeat(char co) {
         List<String> mostC = new ArrayList<String>();
         int most = Integer.MIN_VALUE;
-        for (String mySTR : freqOfChar.keySet()) {
-            CharCounter my = freqOfChar.get(mySTR);
+        if (Character.isLetter(co)) {
+            for (String mySTR : freqOfChar.keySet()) {
+                CharCounter my = freqOfChar.get(mySTR);
 
-            if (my.getCountedMap().containsKey(co)) {
-                int temp = my.getCountedMap().get(co);
-                if (most <= temp) {
-                    if (most < temp) {
-                        mostC.clear();
-                        most = temp;
+                if (my.getCountedMap().containsKey(co)) {
+                    int temp = my.getCountedMap().get(co);
+                    if (most <= temp) {
+                        if (most < temp) {
+                            mostC.clear();
+                            most = temp;
+                        }
+                        mostC.add(mySTR);
                     }
-                    mostC.add(mySTR);
                 }
+
             }
+            System.out.println("Here is a list of word(s) that repeat '" + Character.toUpperCase(co) + "' the most. \n" +
+                    mostC.toString().replaceAll("[\\[\\]]", ""));
+        } else {
+            System.out.println(co + " is not in the letter");
         }
-        System.out.println(mostC.toString());
     }
 }
