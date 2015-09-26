@@ -34,15 +34,15 @@ public class Main {
 
         //Get a char to returns word(s) with the most uses of that Char
         char c;
-        System.out.print("Please enter a letter to find word with it repeated the most: ");
+        System.out.print("Please enter a letter to find word(s) with it repeated the most: ");
         c = console.next().charAt(0);
 
         //Call to create list and display output.
         Stats fr;
         fr = new Stats(files);
-        fr.reuslt();
+        fr.result();
         fr.countOfNletterWrd(number);
-        fr.repeat(c);
+        fr.calRepeat(c);
 
         //Random word selector.
         Random rand = new Random();

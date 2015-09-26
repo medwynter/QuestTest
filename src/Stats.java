@@ -10,16 +10,31 @@ import java.util.TreeMap;
  * @author Created by ritho on 9/25/15.
  */
 public class Stats {
-    private int wordsCount = 0;
-    private List<String> longestWord = new ArrayList<String>();//List of longest words
-    private List<String> uw = new ArrayList<String>();//List of  unique words by use of chars
+    /**
+     * A count of all the words.
+     */
+    private int totalWordsCount = 0;
+    /**
+     * List of longest words.
+     */
+    private List<String> longestWord = new ArrayList<String>();
+    /**
+     * List of  unique words by use of chars
+     */
+    private List<String> uw = new ArrayList<String>();
+
+    /**
+     * Key: A length of words
+     * Value: Num of words that it's length equals the key
+     */
     private Map<Integer, Integer> lensOfWords = new TreeMap<Integer, Integer>();
 
-    /*
-     * Key: Keeps a sorted list of the words.
+    /**
+     * Key: A sorted list of the words.
      * Value: The Frequency of chars in Key.
      */
     private Map<String, CharCounter> freqOfChar = new TreeMap<String, CharCounter>();
+
 
     /**
      * Constructor for multiple files.
@@ -42,10 +57,6 @@ public class Stats {
 
     }
 
-    public void nnn(char co) {
-
-
-    }
 
     /**
      * Parses through the file that is provided to create the word list.
@@ -64,7 +75,7 @@ public class Stats {
             br = new BufferedReader(new FileReader(file));
             String str;
             while ((str = br.readLine()) != null) {
-                wordsCount++;
+                totalWordsCount++;
                 //Do some additional calls now while i'm at on each word.
                 //int temp = Math.max(longest,str.length());
 
@@ -88,8 +99,8 @@ public class Stats {
      */
 
 
-    public void reuslt() {
-        System.out.println("-----------------------------------");
+    public void result() {
+        System.out.println("---------------------------------------------");
         Thread t2 = new Thread() {
             public void run() {
 
@@ -109,7 +120,7 @@ public class Stats {
 
 
         try {
-            System.out.println("Total number words parsed: " + wordsCount);
+            System.out.println("Total number words parsed: " + totalWordsCount);
             System.out.println("First word alphabetically: " + getWrdList().keySet().toArray()[0]);
             t2.join();//To wait to make sure unique list is done before printing result.
             System.out.println("Word with most unique letters: " + uw.toString().replaceAll("[\\[\\]]", ""));
@@ -133,7 +144,7 @@ public class Stats {
     /**
      * @return The longest word in the List.
      */
-    public String getLongestWrd() {
+    private String getLongestWrd() {
         return longestWord.toString().replaceAll("[\\[\\]]", ""); // Replace all from stackover flow.
     }
 
@@ -203,7 +214,6 @@ public class Stats {
                 }
 
                 uw.add(cc);
-                //System.out.println(""+ctemp +" : "+ uw.get(0).length() );
 
             }
         }
@@ -227,27 +237,36 @@ public class Stats {
 
     }
 
-    public void repeat(char co) {
-        List<String> mostC = new ArrayList<String>();
-        int most = Integer.MIN_VALUE;
-        if (Character.isLetter(co)) {
+    /**
+     * Take a a character and Create a list of word(s) that use the letter the most.
+     *
+     * @param co - The letter to show what word(s) repeats it the most.
+     */
+    public void calRepeat(char co) {
+        List<String> mostUsage = new ArrayList<String>();//The list of word with CO repeated the most.
+        int highestUsage = Integer.MIN_VALUE; // Temp value for the highest usage of  CO
+        if (Character.isLetter(co)) {//Check if the char passed is a letter
+
+            //Go through all the words and its CharCounter for  CO
             for (String mySTR : freqOfChar.keySet()) {
                 CharCounter my = freqOfChar.get(mySTR);
 
+                //Go through the CharCounter and CO if it exist.
+                //Check if it's a higher usage in this word.
                 if (my.getCountedMap().containsKey(co)) {
                     int temp = my.getCountedMap().get(co);
-                    if (most <= temp) {
-                        if (most < temp) {
-                            mostC.clear();
-                            most = temp;
+                    if (highestUsage <= temp) {//If its the same usage in this word add it most repeated list
+                        if (highestUsage < temp) {//If it's less usage clear Usage list and update highest usage count;
+                            mostUsage.clear();
+                            highestUsage = temp;
                         }
-                        mostC.add(mySTR);
+                        mostUsage.add(mySTR);// Add the word usage list.
                     }
                 }
 
             }
             System.out.println("Here is a list of word(s) that repeat '" + Character.toUpperCase(co) + "' the most. " +
-                    "\n  \t" + mostC.toString().replaceAll("[\\[\\]]", ""));
+                    "\n  \t" + mostUsage.toString().replaceAll("[\\[\\]]", ""));
         } else {
             System.out.println(co + " is not a letter.");
         }
