@@ -51,6 +51,7 @@ public class Stats {
 
     /**
      * Constructor for a single file.
+     * @param file - The file that will be parsed.
      */
     public Stats(String file) {
         wrdListMaker(file);
