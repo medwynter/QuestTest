@@ -20,7 +20,7 @@ public class Main {
         files.add("words2.txt");
         files.add("words3.txt");
         files.add("words4.txt");
-        //files.add("words5.txt");//TEST VARIABLE THAT WILL NEED TO BE DELETED
+
 
         Scanner console = new Scanner(System.in);
         //Get a number to see word(s) that  has N letter's.
